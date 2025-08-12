@@ -113,14 +113,17 @@ function close(){ isOpen.value = false }
   grid-template-columns: auto 1fr; /* rail + app content */
 }
 .lr-rail{
-  position:relative;
-  z-index:3;
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-  padding:16px 10px;
-  width:var(--tab-width);
+  position: relative;        /* stick to viewport */
+  top: 16px;              /* small margin from top */
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px 10px;
+  width: var(--tab-width);
   transition: width var(--dur) var(--easing);
+  height: auto;           /* shrink to content */
 }
 /* rail widens slightly when hovering any tab (only if not open) */
 .lr-shell:not(.open) .lr-rail:hover{
