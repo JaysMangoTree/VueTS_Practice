@@ -1,6 +1,6 @@
 <template>
   <div class="lr-shell" :class="{ open: isOpen }">
-    <!-- TAB RAIL -->
+    <!-- TAB RAIL (fixed at top-left) -->
     <v-sheet
       class="lr-rail"
       color="transparent"
@@ -27,15 +27,17 @@
       </v-btn>
     </v-sheet>
 
-    <!-- SIDEBAR / DRAWER -->
+    <!-- SIDEBAR / DRAWER (shifted to the right of the rail, no scrim) -->
     <v-navigation-drawer
       v-model="isOpen"
       :width="panelWidth"
       location="left"
       floating
       temporary
-      scrim
+      :scrim="false"
+      absolute
       class="lr-drawer"
+      :style="{ left: isOpen ? `var(--tab-width)` : `-${panelWidth}px` }"
     >
       <template v-if="current" #prepend>
         <div class="lr-drawer__header">
@@ -112,19 +114,22 @@ function close(){ isOpen.value = false }
   display:grid;
   grid-template-columns: auto 1fr; /* rail + app content */
 }
+
+/* === FIXED, TOP-LEFT RAIL (only as tall as its tabs) === */
 .lr-rail{
-  position: relative;        /* stick to viewport */
-  top: 16px;              /* small margin from top */
+  position: relative;
+  top: 16px;
   left: 0;
-  z-index: 1000;
+  z-index: 2000; /* keep above page, below drawer content if needed */
   display: flex;
   flex-direction: column;
   gap: 14px;
   padding: 16px 10px;
   width: var(--tab-width);
   transition: width var(--dur) var(--easing);
-  height: auto;           /* shrink to content */
+  height: auto;
 }
+
 /* rail widens slightly when hovering any tab (only if not open) */
 .lr-shell:not(.open) .lr-rail:hover{
   width:var(--tab-width-hover);
@@ -151,10 +156,11 @@ function close(){ isOpen.value = false }
 .lr-tab--hover{ transform: translateX(4px) scaleX(1.05); background:var(--hover) !important; }
 .lr-tab--active{ transform: translateX(6px) scaleX(1.08); background:var(--panel-bg) !important; }
 
-/* Drawer look to match sketch */
-.lr-drawer{
+/* === Drawer sits to the right of the fixed rail, and keeps the hand-drawn borders === */
+.lr-drawer {
   border-left: var(--stroke) solid var(--border);
   border-right: var(--stroke) solid var(--border);
+  transition: left var(--dur) var(--easing);
 }
 .lr-drawer__header{
   display:flex; align-items:center; justify-content:space-between; gap:12px;
