@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
-import './style.css'
 import App from './App.vue'
+import vuetify from './plugins/vuetify'
+import './style.css' // keep your globals if you have them
 
-createApp(App).mount('#app')
+createApp(App).use(vuetify).mount('#app')

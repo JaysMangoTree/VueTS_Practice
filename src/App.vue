@@ -1,30 +1,36 @@
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <v-app>
+    <div class="layout">
+      <LeftRailTabsVuetify
+        v-model:open="open"
+        v-model:active-id="activeId"
+        :tabs="tabs"
+      />
+
+      <!-- Your page content goes here -->
+      <main class="page">
+        <h1>Your page</h1>
+        <p>Hover the left tabs to expand; click to open the sidebar.</p>
+      </main>
+    </div>
+  </v-app>
 </template>
 
+<script setup lang="ts">
+import { ref } from 'vue'
+import LeftRailTabsVuetify, { type LeftTab } from './components/LeftRailTabsVuetify.vue'
+
+const tabs = ref<LeftTab[]>([
+  { id: 't1', label: 'Tab 1', contentTitle: 'Tab 1', content: 'Some random info goes here. Some random info goes here.' },
+  { id: 't2', label: 'Tab 2', contentTitle: 'Tab 2', content: 'Another block of information for Tab 2.' },
+  { id: 't3', label: 'Tab 3', contentTitle: 'Tab 3', content: 'This is Tab 3 content.' },
+])
+
+const open = ref(false)
+const activeId = ref<string | null>(null)
+</script>
+
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
+.layout{ display:grid; grid-template-columns:auto 1fr; height:100vh; }
+.page{ padding:28px; }
 </style>
