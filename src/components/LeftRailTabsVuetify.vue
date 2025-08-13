@@ -16,8 +16,8 @@
           'lr-tab--hover': hoverId === t.id && !isOpen,
           'lr-tab--active': isOpen && activeId === t.id
         }"
-        :style="{ backgroundColor: t.color }"
-        variant="flat"
+        :style="{ backgroundColor: t.color + ' !important' }"
+        variant="elevated"
         @mouseenter="hoverId = t.id"
         @focus="hoverId = t.id"
         @click="onTabClick(t.id)"
@@ -64,6 +64,7 @@ export type LeftTab = {
   label: string
   content?: string
   contentTitle?: string
+  color?: string // HEX, RGB, or Vuetify theme color name
 }
 
 const props = defineProps<{
@@ -132,9 +133,9 @@ function close(){ isOpen.value = false }
 }
 
 /* rail widens slightly when hovering any tab (only if not open) */
-.lr-shell:not(.open) .lr-rail:hover{
+/* .lr-shell:not(.open) .lr-rail:hover{
   width:var(--tab-width-hover);
-}
+} */
 
 .lr-tab {
   height: 120px;
@@ -154,7 +155,7 @@ function close(){ isOpen.value = false }
   font-weight:700;
   letter-spacing:.5px;
 }
-.lr-tab--hover{ transform: translateX(4px) scaleX(1.05); background:var(--hover) !important; }
+/* .lr-tab--hover{ transform: translateX(4px) scaleX(1.05); background:var(--hover) !important; }
 .lr-tab--active {
   border-left: var(--stroke) solid var(--border);
   border-right: none;
@@ -162,7 +163,19 @@ function close(){ isOpen.value = false }
   border-bottom-left-radius: var(--radius);
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
-  box-shadow: 3px 0 0 0 var(--border) inset; /* shadow to right side */
+  box-shadow: 3px 0 0 0 var(--border) inset;
+} */
+
+/* .lr-tab--hover {
+  filter: brightness(1.1);
+} */
+ .lr-tab--hover {
+  transform: translateX(4px) scaleX(1.05);
+  filter: brightness(1.1);
+}
+
+.lr-tab--active {
+  filter: brightness(0.9); /* slightly darker when active */
 }
 
 /* === Drawer sits to the right of the fixed rail, and keeps the hand-drawn borders === */
