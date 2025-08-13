@@ -16,7 +16,8 @@
           'lr-tab--hover': hoverId === t.id && !isOpen,
           'lr-tab--active': isOpen && activeId === t.id
         }"
-        variant="text"
+        :style="{ backgroundColor: t.color }"
+        variant="flat"
         @mouseenter="hoverId = t.id"
         @focus="hoverId = t.id"
         @click="onTabClick(t.id)"
@@ -135,17 +136,17 @@ function close(){ isOpen.value = false }
   width:var(--tab-width-hover);
 }
 
-.lr-tab{
-  height:120px;
-  justify-content:center;
-  border:var(--stroke) solid var(--border);
-  border-right:none;
-  border-top-left-radius:var(--radius);
-  border-bottom-left-radius:var(--radius);
-  background:var(--rail-bg) !important;
-  color:var(--text) !important;
-  box-shadow: 3px 0 0 0 var(--border) inset;
-  transition: transform var(--dur) var(--easing), background var(--dur) var(--easing);
+.lr-tab {
+  height: 120px;
+  justify-content: center;
+  border: var(--stroke) solid var(--border);
+  border-left: none; /* no left border so curve is on the outside */
+  border-top-right-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+  background: var(--rail-bg) !important;
+  color: var(--text) !important;
+  box-shadow: -3px 0 0 0 var(--border) inset; /* shadow to left side */
+  transition: all var(--dur) var(--easing);
 }
 .lr-tab__label{
   writing-mode: vertical-rl;
@@ -154,7 +155,15 @@ function close(){ isOpen.value = false }
   letter-spacing:.5px;
 }
 .lr-tab--hover{ transform: translateX(4px) scaleX(1.05); background:var(--hover) !important; }
-.lr-tab--active{ transform: translateX(6px) scaleX(1.08); background:var(--panel-bg) !important; }
+.lr-tab--active {
+  border-left: var(--stroke) solid var(--border);
+  border-right: none;
+  border-top-left-radius: var(--radius);
+  border-bottom-left-radius: var(--radius);
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  box-shadow: 3px 0 0 0 var(--border) inset; /* shadow to right side */
+}
 
 /* === Drawer sits to the right of the fixed rail, and keeps the hand-drawn borders === */
 .lr-drawer {

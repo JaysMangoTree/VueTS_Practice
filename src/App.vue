@@ -21,9 +21,9 @@ import { ref } from 'vue'
 import LeftRailTabsVuetify, { type LeftTab } from './components/LeftRailTabsVuetify.vue'
 
 const tabs = ref<LeftTab[]>([
-  { id: 't1', label: 'Tab 1', contentTitle: 'Tab 1', content: 'Some random info goes here. Some random info goes here.' },
-  { id: 't2', label: 'Tab 2', contentTitle: 'Tab 2', content: 'Another block of information for Tab 2.' },
-  { id: 't3', label: 'Tab 3', contentTitle: 'Tab 3', content: 'This is Tab 3 content.' },
+  { id: 't1', label: 'Tab 1', contentTitle: 'Tab 1', content: 'Some random info.', color: '#ff6f61' },
+  { id: 't2', label: 'Tab 2', contentTitle: 'Tab 2', content: 'Another block.', color: '#4db6ac' },
+  { id: 't3', label: 'Tab 3', contentTitle: 'Tab 3', content: 'This is Tab 3.', color: '#9575cd' },
 ])
 
 const open = ref(false)
