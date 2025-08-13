@@ -141,12 +141,14 @@ function close(){ isOpen.value = false }
   height: 120px;
   justify-content: center;
   border: var(--stroke) solid var(--border);
-  border-left: none; /* no left border so curve is on the outside */
+  border-left: none; /* flat edge on left */
   border-top-right-radius: var(--radius);
   border-bottom-right-radius: var(--radius);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
   background: var(--rail-bg) !important;
   color: var(--text) !important;
-  box-shadow: -3px 0 0 0 var(--border) inset; /* shadow to left side */
+  box-shadow: -3px 0 0 0 var(--border) inset; /* shadow on right */
   transition: all var(--dur) var(--easing);
 }
 .lr-tab__label{
@@ -175,7 +177,13 @@ function close(){ isOpen.value = false }
 }
 
 .lr-tab--active {
-  filter: brightness(0.9); /* slightly darker when active */
+  border-left: var(--stroke) solid var(--border);
+  border-right: none;
+  border-top-left-radius: var(--radius);
+  border-bottom-left-radius: var(--radius);
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  box-shadow: 3px 0 0 0 var(--border) inset; /* shadow on left */
 }
 
 /* === Drawer sits to the right of the fixed rail, and keeps the hand-drawn borders === */
